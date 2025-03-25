@@ -1,0 +1,9 @@
+#home-page {
+  height: 100dvh;
+  width: 100vw;
+  background: #08090a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff1f2;
+}
