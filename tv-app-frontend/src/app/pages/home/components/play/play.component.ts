@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,5 +8,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './play.component.css'
 })
 export class PlayComponent {
-  @Input() videoId!: number;
+  @Input() videoId: number | null = null;
 }

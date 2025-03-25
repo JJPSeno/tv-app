@@ -1,7 +1,15 @@
 import axios from 'axios';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { UploadComponent } from './components/upload/upload.component';
 import { PlayComponent } from './components/play/play.component';
+
+type Movie = {
+  id: number
+  title: string
+  description: string
+}
+
+type MovieList = Movie[]
 
 @Component({
   selector: 'app-home',
@@ -10,31 +18,29 @@ import { PlayComponent } from './components/play/play.component';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  ////
-  // This is actually watch.component logic
-  ///
-  videoId = 33
   hasLoaded = signal(false)
   error = signal<string | null>(null)
-  title = signal<string | null>(null)
-  description = signal<string | null>(null)
-  
+  movieList = signal<MovieList | null>(null)
+  cursor = signal<number | null>(null)
+  currentMovie = signal<Movie | null>(null)
+
   ngOnInit(): void {
-    console.log("initial loaded val: ", this.hasLoaded())
-    axios.get(`https://fakestoreapi.com/products/${this.videoId}`)
+    axios.get<MovieList>(`https://fakestoreapi.com/products`)
       .then(response => {
-        console.log(response.data)
-        if (response.data){
+        if (response.data.length > 0){
+          this.movieList.set(response.data)
+          this.cursor.set(response.data[0].id)
+          this.currentMovie.set(
+            this.movieList()?.find(
+              (movie) => movie.id === this.cursor()
+            )??null
+          )
           this.hasLoaded.set(true)
-          this.title.set(response.data.title)
-          this.description.set(response.data.description)
-          console.log("loaded val: ", this.hasLoaded())
         } else {
           this.error.set('Empty Response');
         }
       })
-      .catch(error => {
-        console.error('API Error:', error)
+      .catch(() => {
         this.error.set('Fetching Error');
       });
   }

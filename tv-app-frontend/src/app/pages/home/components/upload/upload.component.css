@@ -1,10 +1,26 @@
 .upload{
+  z-index: 1;
   position: absolute;
+  background-color: #fff1f2; 
+  color: #08090a;
   top: 15px;
   right: 15px;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
+  display: flex;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.upload:hover{
+  cursor: pointer;
 }
 
 .upload > img {
+  margin-left: 5px;
   width: 20px;
   height: 20px;
 }

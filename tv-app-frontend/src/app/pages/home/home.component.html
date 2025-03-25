@@ -16,12 +16,12 @@
         class="title"
       >
         <h1>
-          {{ title() }}
+          {{ currentMovie()?.title }}
         </h1>
-        <play-button [videoId]='videoId'/>
+        <play-button [videoId]='currentMovie()?.id??null'/>
       </div>
       <p>
-        {{ description() }}
+        {{ currentMovie()?.description }}
       </p>
     </section>
   }

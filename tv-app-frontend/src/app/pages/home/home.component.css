@@ -1,10 +1,10 @@
 #movie-detail {
   position: fixed;
   inset: 3rem;
-  margin-bottom: 2rem;
 }
 
 .title {
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
 }
