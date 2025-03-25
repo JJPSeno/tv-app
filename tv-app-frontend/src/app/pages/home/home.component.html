@@ -3,19 +3,31 @@
   class="full-centered"
 >
   <upload-button />
-  <section
-    id="movie-detail"
-  >
-    <div
-      class="title"
-    >
-      <h1>
-        {{ title }}
-      </h1>
-      <play-button [videoId]='videoId'/>
-    </div>
+  @if (!hasLoaded() && !error()) {
     <p>
-      {{ description }}
+      loading
     </p>
-  </section>
+  }
+  @if(hasLoaded() && !error()) {
+    <section
+      id="movie-detail"
+    >
+      <div
+        class="title"
+      >
+        <h1>
+          {{ title() }}
+        </h1>
+        <play-button [videoId]='videoId'/>
+      </div>
+      <p>
+        {{ description() }}
+      </p>
+    </section>
+  }
+  @if (error()) {
+    <p>
+      {{ error() }}
+    </p>
+  }
 </main>
