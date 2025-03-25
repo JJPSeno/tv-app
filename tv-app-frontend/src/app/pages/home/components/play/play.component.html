@@ -1,6 +1,6 @@
 <a
   class="play"
-  routerLink="/watch" routerLinkActive="active" ariaCurrentWhenActive="page"
+  [routerLink]="['/watch']" [queryParams]="{ v: videoId }" routerLinkActive="active" ariaCurrentWhenActive="page"
 >
   <img
     src="assets/icons/play-circle.svg"
