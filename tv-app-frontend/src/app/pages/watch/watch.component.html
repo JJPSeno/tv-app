@@ -2,5 +2,17 @@
   id="watch-page"
   class="full-centered"
 >
-  <p>watch works!</p>
+  @if (!hasLoaded() && !error()) {
+    <p>
+      loading
+    </p>
+  }
+  @if(hasLoaded() && !error()) {
+    <p>{{ title() }}</p>
+  }
+  @if (error()) {
+    <p>
+      {{ error() }}
+    </p>
+  } 
 </main>
