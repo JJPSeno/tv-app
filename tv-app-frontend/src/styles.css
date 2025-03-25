@@ -16,4 +16,14 @@ body {
   font-family: 'Roboto Condensed';
   font-size: xx-large;
   font-display: swap;
+  color: #fff1f2;
+  background: #08090a;
+}
+
+.full-centered {
+  height: 100dvh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,0 +1,10 @@
+.upload{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.upload > img {
+  width: 20px;
+  height: 20px;
+}
