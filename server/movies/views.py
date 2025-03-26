@@ -2,20 +2,29 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 from .models import Movie
 from .serializers import MovieSerializer
 
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = None  # Disables ability to change page size
+    max_page_size = 10
+
+
 class MovieListCreate(APIView):
-    """
-    GET all movies and POST new movies
-    """
+    pagination_class = CustomPagination
+
     def get(self, request):
         # Get all movies from database
         movies = Movie.objects.all()
         # Serialize the queryset
-        serializer = MovieSerializer(movies, many=True)
+        paginator = self.pagination_class()
+        paginated_movies = paginator.paginate_queryset(movies, request)
+        serializer = MovieSerializer(paginated_movies, many=True)
         # Return serialized data in response
-        return Response(serializer.data)
+        return paginator.get_paginated_response(serializer.data)
     
     def post(self, request):
         # Create a new serializer with the request data
