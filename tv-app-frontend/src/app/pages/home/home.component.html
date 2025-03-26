@@ -1,14 +1,15 @@
+<modal-section />
 <main
   id="home-page"
   class="full-centered"
 >
-  <upload-button />
-  @if (!hasLoaded() && !error()) {
-    <p>
-      loading
-    </p>
-  }
-  @if(hasLoaded() && !error()) {
+@if (!hasLoaded() && !error()) {
+  <p>
+    loading
+  </p>
+}
+@if(hasLoaded() && !error()) {
+    <upload-button />
     <section
       id="movie-detail"
     >
@@ -24,6 +25,7 @@
         {{ currentMovie()?.description }}
       </p>
     </section>
+    <details-button />
   }
   @if (error()) {
     <p>

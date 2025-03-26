@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { Component, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, signal, computed } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { MovieService } from '../../services/movie.service'
 
 @Component({
   selector: 'app-watch',
@@ -9,25 +9,30 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './watch.component.css'
 })
 export class WatchComponent implements OnInit {
-  videoId = signal<string | null>(null)
+  constructor(private route: ActivatedRoute) {}
+
+  paramVideoId = signal<string | null>(null)
+  videoId = computed(() => {
+    return parseInt(this.paramVideoId()??'-1')
+  })
   hasLoaded = signal(false)
   error = signal<string | null>(null)
   title = signal<string | null>(null)
   description = signal<string | null>(null)
 
-  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.videoId.set(this.route.snapshot.queryParamMap.get('v'))
+    this.paramVideoId.set(this.route.snapshot.queryParamMap.get('v'))
     console.log("video id is:", this.videoId())
-    axios.get(`https://fakestoreapi.com/products/${this.videoId()}`)
+    MovieService.getMovie(this.videoId())
       .then(response => {
-        if (response.data){
+        console.log("w response",response)
+        if (response){
           this.hasLoaded.set(true)
-          this.title.set(response.data.title)
-          this.description.set(response.data.description)
+          this.title.set(response.title)
+          this.description.set(response.description)
         } else {
-          this.error.set('Empty Response');
+          this.error.set('Empty Response')
         }
       })
       .catch(error => {

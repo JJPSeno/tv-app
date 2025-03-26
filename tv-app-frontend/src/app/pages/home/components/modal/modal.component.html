@@ -1,0 +1,29 @@
+@if (modalService.isOpen()){
+  <div class="modal-backdrop">
+    <div class="modal-container">
+      <h2>Form Modal</h2>
+      <button class="close-btn" (click)="modalService.close()">X</button>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label>Title</label>
+        <input formControlName="title" type="text" class="input">
+        
+        <label>Description</label>
+        <textarea formControlName="description" rows="3" class="textarea"></textarea>
+        
+        <div
+          class="drop-area"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+        >
+          @if (!file){
+            <p>Drag & Drop a file here or click to select</p>
+          } @else {
+            <p>{{ file.name }}</p>
+          }
+        </div>
+        
+        <button type="submit" [disabled]="form.invalid || !file" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+}

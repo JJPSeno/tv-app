@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, Input } from '@angular/core'
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'play-button',
@@ -8,5 +8,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './play.component.css'
 })
 export class PlayComponent {
-  @Input() videoId: number | null = null;
+  @Input() videoId: number | null = null
 }
