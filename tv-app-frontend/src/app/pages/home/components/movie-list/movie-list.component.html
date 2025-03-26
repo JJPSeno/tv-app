@@ -1,0 +1,16 @@
+@if (movieList.length > 0){
+<ul
+  id="movie-list"
+  class=""
+>
+  @for (movie of movieList; track movie.id) {
+    <li
+      (click)="onMovieClick(movie.id)"
+      [class.selected]='movie.id === videoId'
+    >
+      {{ movie.title }}
+    </li>
+  }
+
+</ul>
+}

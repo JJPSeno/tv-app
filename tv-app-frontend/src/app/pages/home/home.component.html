@@ -31,3 +31,8 @@
     </p>
   }
 </main>
+<movie-list-section 
+  [videoId]='currentMovie()?.id??null' 
+  [movieList]='movieList()' 
+  (movieSelected)="updateCursor($event)"
+/>
