@@ -1,0 +1,26 @@
+.details{
+  z-index: 1;
+  position: absolute;
+  background-color: #fff1f2; 
+  color: #08090a;
+  bottom: 22dvh;
+  right: 15px;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font: inherit;
+  display: flex;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.details:hover{
+  cursor: pointer;
+}
+
+.details > img {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+}

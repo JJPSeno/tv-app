@@ -1,0 +1,30 @@
+#video-player {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.video-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.video-info {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+
+.video-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.video-description {
+  line-height: 1.6;
+  font-size: 1.25rem;
+}

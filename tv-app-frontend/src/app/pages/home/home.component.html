@@ -1,0 +1,54 @@
+<upload-modal 
+  (movieUploaded)="refreshMovies()"
+/>
+<details-modal 
+  [currentMovie]="currentMovie()"
+  (movieUpdated)="onMovieUpdated($event)"
+  
+/>
+<main
+  id="home-page"
+  class="full-centered"
+>
+<upload-button />
+@if (!hasLoaded() && !error()) {
+  <p>
+    loading
+  </p>
+}
+@if(hasLoaded() && !error()) {
+    <section
+      id="movie-detail"
+    >
+      <div
+        class="title"
+      >
+        <h1>
+          {{ currentMovie()?.title }}
+        </h1>
+        <play-button [videoId]='currentMovie()?.id??null'/>
+      </div>
+      <p>
+        {{ currentMovie()?.description }}
+      </p>
+    </section>
+    <details-button />
+    <delete-button
+      [videoId]='currentMovie()?.id??null'
+      [videoTitle]="currentMovie()?.title??null"
+      (movieDeleted)="onMovieDeleted($event)"
+    />
+  }
+  @if (error()) {
+    <p>
+      {{ error() }}
+    </p>
+  }
+</main>
+<movie-list-section 
+  [videoId]='currentMovie()?.id??null' 
+  [movieList]='movieList()'
+  [hasMore]='pageNext()!=null'
+  (loadMoreMovies)="loadNextPage()"
+  (movieSelected)="updateCursor($event)"
+/>

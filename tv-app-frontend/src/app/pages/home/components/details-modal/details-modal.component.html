@@ -1,0 +1,46 @@
+@if (modalService.isOpen('details')){
+  <div class="modal-backdrop">
+    <div class="modal-container">
+      <h2>Movie Details</h2>
+      <button class="close-btn" (click)="modalService.close('details')">X</button>
+      <form
+        id="movie-upload-form"
+        [formGroup]="form" 
+        (ngSubmit)="onSubmit()"
+      >
+        <div
+          class="movie-detail"
+        >
+          <label for="movie-title-input">Title</label>
+          <input id="movie-title-input" formControlName="title" type="text">
+        </div>
+        <div
+          class="movie-detail"
+        >
+          <label for="movie-description">Description</label>
+          <textarea id="movie-description" formControlName="description" rows="5"></textarea>
+        </div>
+        
+        <div
+          class="drop-area movie-detail"
+          (dragover)="onDragOver($event)"
+          (drop)="onDrop($event)"
+        >
+          @if (!file){
+            <p>Drag & Drop your movie file here</p>
+          } @else {
+            <p>{{ file.name }}</p>
+          }
+          <input
+            id="movie-file"
+            type="file" 
+            (change)="onFileSelected($event)"
+            accept="video/mp4"
+          >
+        </div>
+        
+        <button type="submit" class="submit-btn">Update</button>
+      </form>
+    </div>
+  </div>
+}
