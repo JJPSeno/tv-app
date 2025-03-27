@@ -7,7 +7,6 @@ from rest_framework.pagination import PageNumberPagination
 from .models import Movie
 from .serializers import MovieSerializer
 
-
 class CustomPagination(PageNumberPagination):
     page_size = 5
     page_size_query_param = None

@@ -1,4 +1,5 @@
-import { Component, ElementRef, Input, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms'
 import { ModalService } from '../../../../services/modal.service'
 import { MovieService } from '../../../../services/movie.service'
@@ -21,13 +22,18 @@ export class DetailsModalComponent implements OnChanges {
 
   constructor(
     private fb: FormBuilder, 
-    public modalService: ModalService,
-    private cdr: ChangeDetectorRef
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef,
+    public modalService: ModalService
   ) {
     this.form = this.fb.group({
       title: [''],
       description: ['']
     })
+  }
+
+  sanitizeInput(input: string) {
+    return this.sanitizer.sanitize(1, input) || ''; // Sanitizes HTML input
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -78,8 +84,8 @@ export class DetailsModalComponent implements OnChanges {
 
       try {
         const formData = new FormData()
-        formData.append('title', this.form.get('title')?.value || '')
-        formData.append('description', this.form.get('description')?.value || '')
+        formData.append('title', this.sanitizeInput(this.form.get('title')?.value || ''))
+        formData.append('description', this.sanitizeInput(this.form.get('description')?.value || ''))
         if (this.file) {
           formData.append('movie_file', this.file)
         }
