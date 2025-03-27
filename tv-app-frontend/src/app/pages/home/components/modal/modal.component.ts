@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core'
+import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ModalService } from '../../../../services/modal.service'
 import { MovieService } from '../../../../services/movie.service'
@@ -11,6 +11,7 @@ import { MovieService } from '../../../../services/movie.service'
 })
 export class ModalComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>
+  @Output() movieUploaded = new EventEmitter<void>()
 
   form: FormGroup
   file: File | null = null
@@ -57,7 +58,7 @@ export class ModalComponent {
         const response = await MovieService.createMovie(formData)
         
         console.log('Movie created:', response)
-        
+        this.movieUploaded.emit()
         this.modalService.close('upload')
       } catch (error) {
         console.error('Failed to create movie:', error)

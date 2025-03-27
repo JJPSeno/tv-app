@@ -1,4 +1,6 @@
-<upload-modal />
+<upload-modal 
+  (movieUploaded)="refreshMovies()"
+/>
 <details-modal 
   [currentMovie]="currentMovie()"
   (movieUpdated)="onMovieUpdated($event)"

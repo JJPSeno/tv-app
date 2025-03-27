@@ -27,6 +27,24 @@ export class HomeComponent implements OnInit {
     return this.movieList().find(movie => movie.id === this.cursor()) || null
   })
 
+  fetchData(){
+    MovieService.getMovies()
+      .then(response => {
+        if (response.results.length > 0){
+          this.movieList.set(response.results)
+          this.pageNext.set(response.next)
+          this.pagePrev.set(response.previous)
+          this.cursor.set(response.results[0].id)
+          this.hasLoaded.set(true)
+        } else {
+          this.error.set('Upload some movies!')
+        }
+      })
+      .catch(() => {
+        this.error.set('Fetching Error')
+      })
+  }
+
   updateCursor(value: number) {
     this.cursor.set(value)
   }
@@ -38,6 +56,7 @@ export class HomeComponent implements OnInit {
   
     MovieService.getMovies(this.pageNext()??undefined)
       .then(response => {
+        console.log(response)
         if (response.results.length > 0) {
           this.movieList.set([...this.movieList(), ...response.results])
           this.pageNext.set(response.next)
@@ -49,6 +68,10 @@ export class HomeComponent implements OnInit {
       .catch(() => {
         this.error.set('Fetching Error')
       })
+  }
+
+  refreshMovies() {
+    this.fetchData()
   }
 
   onMovieUpdated(updatedMovie: Movie) {
@@ -68,23 +91,12 @@ export class HomeComponent implements OnInit {
     if (this.cursor() === movieId) {
       this.cursor.set(this.movieList().length > 0 ? this.movieList()[0].id : null);
     }
+    if (this.movieList.length <= 0){
+      this.fetchData()
+    }
   }
 
   ngOnInit(): void {
-    MovieService.getMovies()
-      .then(response => {
-        if (response.results.length > 0){
-          this.movieList.set(response.results)
-          this.pageNext.set(response.next)
-          this.pagePrev.set(response.previous)
-          this.cursor.set(response.results[0].id)
-          this.hasLoaded.set(true)
-        } else {
-          this.error.set('Upload some movies!')
-        }
-      })
-      .catch(() => {
-        this.error.set('Fetching Error')
-      })
+    this.fetchData()
   }
 }
