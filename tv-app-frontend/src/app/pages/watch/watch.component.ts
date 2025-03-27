@@ -19,7 +19,10 @@ export class WatchComponent implements OnInit {
   error = signal<string | null>(null)
   title = signal<string | null>(null)
   description = signal<string | null>(null)
-
+  movieFile = signal<string | null>(null)
+  movieSrc = computed(() => {
+    return `${MovieService.movieHostUrl()}${this.movieFile()}`
+  })
 
   ngOnInit() {
     this.paramVideoId.set(this.route.snapshot.queryParamMap.get('v'))
@@ -31,13 +34,14 @@ export class WatchComponent implements OnInit {
           this.hasLoaded.set(true)
           this.title.set(response.title)
           this.description.set(response.description)
+          this.movieFile.set(response.movie_file)
         } else {
-          this.error.set('Empty Response')
+          this.error.set('No movie found')
         }
       })
       .catch(error => {
         console.error('API Error:', error)
-        this.error.set('Fetching Error')
+        this.error.set('Failed to load movie')
       }
     )
   }

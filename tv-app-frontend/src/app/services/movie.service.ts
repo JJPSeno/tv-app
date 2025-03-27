@@ -1,9 +1,13 @@
 import axios from 'axios'
 
-const API_URL = 'http://127.0.0.1:8000/api/'
-const MOVIES_API = `${API_URL}movies`
+const SERVER_HOST_URL = 'http://127.0.0.1:8000'
+const MOVIES_API = `${SERVER_HOST_URL}/api/movies`
 
 export class MovieService {
+  
+  static movieHostUrl(){
+    return SERVER_HOST_URL
+  }
 
   static async getMovies(page: number = 1) {
     try {

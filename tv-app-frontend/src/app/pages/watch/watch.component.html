@@ -4,11 +4,25 @@
 >
   @if (!hasLoaded() && !error()) {
     <p>
-      loading
+      Loading movie
     </p>
   }
   @if(hasLoaded() && !error()) {
-    <p>{{ title() }}</p>
+    <div
+      class="video-container"
+    >
+      <video
+        id="video-player"
+        controls
+      >
+        <source [src]='movieSrc()' />
+        Your browser does not support the video html element.
+      </video>
+      <div class="video-info">
+        <h1 class="video-title">{{ title() }}</h1>
+        <p class="video-description">{{ description() }}</p>
+      </div>
+    </div>
   }
   @if (error()) {
     <p>
