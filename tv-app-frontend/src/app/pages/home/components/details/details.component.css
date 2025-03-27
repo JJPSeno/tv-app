@@ -1,4 +1,4 @@
-.upload{
+.details{
   z-index: 1;
   position: absolute;
   background-color: #fff1f2; 
@@ -15,11 +15,11 @@
   justify-content: center;
   align-items: center;
 }
-.upload:hover{
+.details:hover{
   cursor: pointer;
 }
 
-.upload > img {
+.details > img {
   margin-left: 5px;
   width: 20px;
   height: 20px;

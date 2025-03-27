@@ -9,11 +9,17 @@ import { MovieList } from '../../../../models/movie.model'
 })
 export class MovieListComponent {
   @Input() videoId: number | null = null
+  @Input() hasMore: boolean = false
   @Input() movieList: MovieList = []
   @Output() movieSelected = new EventEmitter<number>()
+  @Output() loadMoreMovies = new EventEmitter<void>();
 
   onMovieClick(value: number){
     this.movieSelected.emit(value)
     console.log(value)
+  }
+  
+  onLoadMoreClick() {
+    this.loadMoreMovies.emit();
   }
 }

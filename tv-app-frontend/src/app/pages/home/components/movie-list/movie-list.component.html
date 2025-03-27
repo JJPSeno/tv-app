@@ -5,12 +5,30 @@
 >
   @for (movie of movieList; track movie.id) {
     <li
+      class="movie-item"
       (click)="onMovieClick(movie.id)"
       [class.selected]='movie.id === videoId'
     >
       {{ movie.title }}
     </li>
   }
-
+  @if(hasMore){
+    <li
+    class="load-more"
+    >
+      <button
+        class="load-button"
+        (click)="onLoadMoreClick()"
+      >
+        <img
+          src="assets/icons/plus-circle.svg"
+          alt="Load more"
+        >
+        <p>
+          Load more movies!
+        </p>
+      </button>
+    </li>
+  }
 </ul>
 }

@@ -9,9 +9,9 @@ export class MovieService {
     return SERVER_HOST_URL
   }
 
-  static async getMovies(page: number = 1) {
+  static async getMovies(url: string = MOVIES_API) {
     try {
-      const response = await axios.get(`${MOVIES_API}?page=${page}`)
+      const response = await axios.get(url)
       return response.data
     } catch (error) {
       console.error('Error fetching movies:', error)

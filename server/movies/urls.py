@@ -7,6 +7,3 @@ urlpatterns = [
     path('movies/', MovieListCreate.as_view(), name='movie-list-create'),
     path('movies/<int:pk>/', MovieDetail.as_view(), name='movie-detail'),
 ]
-
-if settings.DEBUG:  # Only serve media files during development
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -35,6 +35,8 @@
 </main>
 <movie-list-section 
   [videoId]='currentMovie()?.id??null' 
-  [movieList]='movieList()' 
+  [movieList]='movieList()'
+  [hasMore]='pageNext()!=null'
+  (loadMoreMovies)="loadNextPage()"
   (movieSelected)="updateCursor($event)"
 />
