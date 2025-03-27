@@ -1,8 +1,8 @@
-@if (modalService.isOpen('upload')){
+@if (modalService.isOpen('details')){
   <div class="modal-backdrop">
     <div class="modal-container">
-      <h2>Upload your movie</h2>
-      <button class="close-btn" (click)="modalService.close('upload')">X</button>
+      <h2>Movie Details</h2>
+      <button class="close-btn" (click)="modalService.close('details')">X</button>
       <form
         id="movie-upload-form"
         [formGroup]="form" 
@@ -39,7 +39,7 @@
           >
         </div>
         
-        <button type="submit" [disabled]="form.invalid || !file" class="submit-btn">Submit</button>
+        <button type="submit" class="submit-btn">Update</button>
       </form>
     </div>
   </div>

@@ -1,15 +1,20 @@
-<modal-section />
+<upload-modal />
+<details-modal 
+  [currentMovie]="currentMovie()"
+  (movieUpdated)="onMovieUpdated($event)"
+  
+/>
 <main
   id="home-page"
   class="full-centered"
 >
+<upload-button />
 @if (!hasLoaded() && !error()) {
   <p>
     loading
   </p>
 }
 @if(hasLoaded() && !error()) {
-    <upload-button />
     <section
       id="movie-detail"
     >
@@ -26,6 +31,11 @@
       </p>
     </section>
     <details-button />
+    <delete-button
+      [videoId]='currentMovie()?.id??null'
+      [videoTitle]="currentMovie()?.title??null"
+      (movieDeleted)="onMovieDeleted($event)"
+    />
   }
   @if (error()) {
     <p>

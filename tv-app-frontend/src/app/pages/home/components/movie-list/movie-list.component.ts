@@ -16,7 +16,6 @@ export class MovieListComponent {
 
   onMovieClick(value: number){
     this.movieSelected.emit(value)
-    console.log(value)
   }
   
   onLoadMoreClick() {

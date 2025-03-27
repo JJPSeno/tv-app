@@ -11,6 +11,6 @@ export class UploadComponent {
   constructor(private modalService: ModalService) {}
  
   openModal() {
-    this.modalService.open()
+    this.modalService.open('upload')
   }
 }

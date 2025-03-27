@@ -26,10 +26,8 @@ export class WatchComponent implements OnInit {
 
   ngOnInit() {
     this.paramVideoId.set(this.route.snapshot.queryParamMap.get('v'))
-    console.log("video id is:", this.videoId())
     MovieService.getMovie(this.videoId())
       .then(response => {
-        console.log("w response",response)
         if (response){
           this.hasLoaded.set(true)
           this.title.set(response.title)

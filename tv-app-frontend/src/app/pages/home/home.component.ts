@@ -5,11 +5,14 @@ import { DetailsComponent } from './components/details/details.component'
 import { MovieListComponent } from './components/movie-list/movie-list.component'
 import { ModalComponent } from './components/modal/modal.component'
 import { MovieList } from '../../models/movie.model'
+import { Movie } from '../../models/movie.model'
 import { MovieService } from '../../services/movie.service'
+import { DetailsModalComponent } from "./components/details-modal/details-modal.component";
+import { DeleteComponent } from './components/delete/delete.component'
 
 @Component({
   selector: 'app-home',
-  imports: [UploadComponent, PlayComponent, MovieListComponent, DetailsComponent, ModalComponent],
+  imports: [UploadComponent, PlayComponent, MovieListComponent, DetailsComponent, ModalComponent, DetailsModalComponent, DeleteComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -25,7 +28,6 @@ export class HomeComponent implements OnInit {
   })
 
   updateCursor(value: number) {
-    console.log("updated cursor: ", value)
     this.cursor.set(value)
   }
 
@@ -49,6 +51,25 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  onMovieUpdated(updatedMovie: Movie) {
+    this.movieList.update(movies => 
+      movies.map(movie => 
+        movie.id === updatedMovie.id ? updatedMovie : movie
+      )
+    );
+  }
+
+  onMovieDeleted(movieId: number) {
+    console.log("optimistic delete hit")
+    this.movieList.update(movies => 
+      movies.filter(movie => movie.id !== movieId)
+    )
+  
+    if (this.cursor() === movieId) {
+      this.cursor.set(this.movieList().length > 0 ? this.movieList()[0].id : null);
+    }
+  }
+
   ngOnInit(): void {
     MovieService.getMovies()
       .then(response => {
@@ -59,7 +80,7 @@ export class HomeComponent implements OnInit {
           this.cursor.set(response.results[0].id)
           this.hasLoaded.set(true)
         } else {
-          this.error.set('Empty Response')
+          this.error.set('Upload some movies!')
         }
       })
       .catch(() => {

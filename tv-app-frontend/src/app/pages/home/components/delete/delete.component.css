@@ -1,0 +1,26 @@
+.delete{
+  z-index: 1;
+  position: absolute;
+  background-color: #fff1f2; 
+  color: #d40a00;
+  bottom: 22dvh;
+  left: 15px;
+  margin: 0;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 10px;
+  font: inherit;
+  display: flex;
+  font-size: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.delete:hover{
+  cursor: pointer;
+}
+
+.delete > img {
+  margin-left: 5px;
+  width: 20px;
+  height: 20px;
+}

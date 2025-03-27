@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
- 
+import { ModalService } from '../../../../services/modal.service'
+
 @Component({
   selector: 'details-button',
   imports: [],
@@ -7,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './details.component.css'
 })
 export class DetailsComponent {
-
+  constructor(private modalService: ModalService) {}
+ 
+  openModal() {
+    this.modalService.open('details')
+  }
 }

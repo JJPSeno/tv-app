@@ -30,8 +30,9 @@ export class MovieService {
   }
 
   static async createMovie(movieData: FormData) {
+    console.log(movieData)
     try {
-      const response = await axios.post(MOVIES_API, movieData, {
+      const response = await axios.post(`${MOVIES_API}/`, movieData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       return response.data
@@ -43,7 +44,7 @@ export class MovieService {
 
   static async updateMovie(id: number, movieData: FormData) {
     try {
-      const response = await axios.patch(`${MOVIES_API}${id}/`, movieData, {
+      const response = await axios.patch(`${MOVIES_API}/${id}/`, movieData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       return response.data
@@ -55,7 +56,7 @@ export class MovieService {
 
   static async deleteMovie(id: number) {
     try {
-      await axios.delete(`${MOVIES_API}${id}/`)
+      await axios.delete(`${MOVIES_API}/${id}/`)
       return { success: true }
     } catch (error) {
       console.error(`Error deleting movie with ID ${id}:`, error)
