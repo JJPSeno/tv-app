@@ -1,3 +1,4 @@
+from django.utils.html import strip_tags
 from rest_framework import serializers
 from .models import Movie
 
@@ -6,6 +7,12 @@ class MovieSerializer(serializers.ModelSerializer):
         model = Movie
         fields = ['id', 'title', 'description', 'movie_file', 'date_added']
         read_only_fields = ['date_added']
+
+    def validate_title(self, value):
+        return strip_tags(value)
+
+    def validate_description(self, value):
+        return strip_tags(value)
 
     def validate_movie_file(self, file):
         ext = file.name.split('.')[-1].lower()

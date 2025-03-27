@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core'
+import { DomSanitizer } from '@angular/platform-browser'
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ModalService } from '../../../../services/modal.service'
 import { MovieService } from '../../../../services/movie.service'
@@ -18,13 +19,18 @@ export class ModalComponent {
   isDragover = false
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
+    private sanitizer: DomSanitizer,
     public modalService: ModalService
   ) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required]
     })
+  }
+
+  sanitizeInput(input: string) {
+    return this.sanitizer.sanitize(1, input) || ''; // Sanitizes HTML input
   }
 
   onFileSelected(event: Event) {
@@ -52,8 +58,8 @@ export class ModalComponent {
     if (this.form.valid && this.file) {
       try {
         const formData = new FormData()
-        formData.append('title', this.form.get('title')?.value || '')
-        formData.append('description', this.form.get('description')?.value || '')
+        formData.append('title', this.sanitizeInput(this.form.get('title')?.value || ''))
+        formData.append('description', this.sanitizeInput(this.form.get('description')?.value || ''))
         formData.append('movie_file', this.file)
         const response = await MovieService.createMovie(formData)
         
